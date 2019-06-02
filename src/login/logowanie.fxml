@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="login.LogController"
+            prefHeight="400.0" prefWidth="600.0">
+    <children>
+        <Button layoutX="280.0" layoutY="320.0" mnemonicParsing="false" text="ZALOGUJ" onAction="#Connect"/>
+        <Label layoutX="192.0" layoutY="14.0" prefHeight="75.0" prefWidth="236.0" text="OKNO LOGOWANIA" />
+        <Separator layoutX="18.0" layoutY="87.0" prefHeight="0.0" prefWidth="565.0" />
+        <Label layoutX="89.0" layoutY="135.0" text="LOGING" />
+        <Label layoutX="89.0" layoutY="190.0" text="HASŁO" />
+
+        <PasswordField layoutX="270.0" layoutY="185.0"  promptText="HASŁO" fx:id="password"/>
+        <TextField layoutX="270.0" layoutY="130.0" promptText="LOGIN" fx:id="login"/>
+    </children>
+</AnchorPane>

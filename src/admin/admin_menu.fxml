@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane maxHeight="400.0" maxWidth="770.0" minHeight="400.0" minWidth="770.0" prefHeight="400.0" prefWidth="770.0"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin.AdminController">
+    <children>
+        <TabPane maxHeight="400" maxWidth="770" minHeight="400.0" minWidth="770.0" prefHeight="400.0" prefWidth="770.0"
+                 tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab text="Pracownicy">
+                    <Pane prefHeight="400.0" prefWidth="770.0">
+                        <children>
+                            <TableView fx:id="tablePracownicy" layoutX="13.0" layoutY="14.0" prefHeight="230.0"
+                                       prefWidth="450.0" style="-fx-font-size: 8px">
+
+                                <columns>
+                                    <TableColumn fx:id="columnIdPracownika" maxWidth="70" minWidth="50" prefWidth="50"
+                                                 text="Id Pracownika">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="id_pracownika"/>
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn fx:id="columnImiePracownika" maxWidth="70" minWidth="50" prefWidth="50"
+                                                 text="Imię">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="imie"/>
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn fx:id="columnNazwiskoPracownika" maxWidth="70" minWidth="50"
+                                                 prefWidth="50" text="Nazwisko">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="nazwisko"/>
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn fx:id="columnDataUrPracownika" maxWidth="70" minWidth="50"
+                                                 prefWidth="50" text="Data Urodzenia">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="data_urodzenia"/>
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn fx:id="columnPeselPracownika" maxWidth="70" minWidth="50"
+                                                 prefWidth="50" text="Pesel">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="pesel"/>
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn fx:id="columnNrKontaPracownika" maxWidth="70" minWidth="50"
+                                                 prefWidth="50" text="Nr Konta Bankowego">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="nr_konta_bankowego"/>
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn fx:id="columnNrTelPracownika" maxWidth="70" minWidth="50"
+                                                 prefWidth="50" text="Nr Telefonu">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="nr_telefonu"/>
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn fx:id="columnIdAntykwariatu" maxWidth="70" minWidth="50" prefWidth="50"
+                                                 text="Id Antykwariatu">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="id_antykwariatu"/>
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn fx:id="columnIdAdresu" maxWidth="70" minWidth="50" prefWidth="50"
+                                                 text="Id Adresu">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="id_adresu"/>
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                </columns>
+                            </TableView>
+                            <TextField fx:id="textSearch" layoutX="14.0" layoutY="276.0" prefHeight="24.0" prefWidth="376.0"
+                                       promptText="Wpisz nazwisko"/>
+                            <Button fx:id="addButton" layoutX="80.0" layoutY="318.0" mnemonicParsing="false"
+                                    onAction="#InsertPracownikAction" prefHeight="25.0" prefWidth="74.0" text="Dodaj"/>
+                            <Button fx:id="deleteButton" layoutX="201.0" layoutY="318.0" mnemonicParsing="false"
+                                    onAction="#DeleteEntry" prefHeight="25.0" prefWidth="74.0" text="Usuń"/>
+                            <Button fx:id="searchButton" layoutX="390.0" layoutY="276.0" mnemonicParsing="false"
+                                    onAction="#SearchEntry" prefWidth="74.0" text="Szukaj"/>
+                            <Button fx:id="cancelButton" disable="true" layoutX="673.0" layoutY="318.0"
+                                    onAction="#CancelEntries" mnemonicParsing="false" prefHeight="25.0" prefWidth="74.0" text="Anuluj"/>
+                            <Button fx:id="commitButton" disable="true" layoutX="521.0" layoutY="318.0"
+                                    onAction="#CommitEntry" mnemonicParsing="false" prefWidth="74.0"
+                                    text="Zaakceptuj"/>
+                            <TextField fx:id="textImie" disable="true" layoutX="521.0" layoutY="14.0" prefHeight="27.0"
+                                       prefWidth="224.0" promptText="Imię"/>
+                            <TextField fx:id="textNazwisko" disable="true" layoutX="521.0" layoutY="52.0"
+                                       prefHeight="27.0" prefWidth="224.0" promptText="Nazwisko"/>
+                            <DatePicker fx:id="textUrodzenie" disable="true" layoutX="521.0" layoutY="90.0"
+                                        prefHeight="27.0" prefWidth="223.0" promptText="Data urodzenia"/>
+                            <TextField fx:id="textPesel" disable="true" layoutX="521.0" layoutY="128.0"
+                                       prefHeight="27.0" prefWidth="224.0" promptText="Pesel"/>
+                            <TextField fx:id="textBank" disable="true" layoutX="521.0" layoutY="166.0" prefHeight="27.0"
+                                       prefWidth="224.0" promptText="Nr konta bankowego"/>
+                            <TextField fx:id="textTelefon" disable="true" layoutX="521.0" layoutY="204.0"
+                                       prefHeight="27.0" prefWidth="224.0" promptText="Telefon"/>
+                            <ComboBox fx:id="textAntykwariat" disable="true" layoutX="521.0" layoutY="242.0"
+                                      prefHeight="25.0" prefWidth="225.0" promptText="Antykwariat"/>
+                            <ComboBox fx:id="textAdres" disable="true" layoutX="521.0" layoutY="280.0" prefHeight="25.0"
+                                      prefWidth="226.0" promptText="Adres"/>
+                            <Separator layoutX="490.0" layoutY="14.0" orientation="VERTICAL" prefHeight="350.0"
+                                       prefWidth="7.0"/>
+                            <Button fx:id="updateButton" layoutX="317.0" layoutY="318.0" mnemonicParsing="false"
+                                    onAction="#UpdatePracownikAction" text="Zaktualizuj"/>
+
+                        </children>
+                    </Pane>
+
+                </Tab>
+                <Tab text="Administrator">
+                    <content>
+                        <Pane prefHeight="400.0" prefWidth="770.0"/>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</AnchorPane>
