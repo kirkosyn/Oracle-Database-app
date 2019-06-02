@@ -27,27 +27,11 @@ public class LogController {
 
 
     public void Connect(ActionEvent actionEvent) throws IOException {
-        /* TODO  zrobienie w tym miejscu by sie laczy z baza danych*/
-        Stage stage = new Stage();
-        Parent root;
-        //domyslne hasla login aaa i aaa
-        if (password.getText().equals("aaa") && login.getText().equals("aaa")) {
-            stage = (Stage) password.getScene().getWindow(); //bierzemy jakikolwiek element by ze starego okna by na niego naniesc nowe
+        if (password.getText().equals("admin") && login.getText().equals("admin")) {
 
-            root = FXMLLoader.load(getClass().getResource("pracownik.fxml"));
+            ScreenController.activate("admin", "Menadżer pracowników", 750, 400);
+        } else if (password.getText().equals("bbb") && login.getText().equals("bbb")) {
 
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        }
-        else if (password.getText().equals("bbb") && login.getText().equals("bbb")) {
-            stage = (Stage) password.getScene().getWindow(); //bierzemy jakikolwiek element by ze starego okna by na niego naniesc nowe
-
-            root = FXMLLoader.load(getClass().getResource("adminstrator.fxml"));
-
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
         }
 
         //gdy sie nie łaczy z baz danych
@@ -64,13 +48,17 @@ public class LogController {
         }
 
     }
-    public static String getLogin()
-    {return Login;}
-    public static String getPassword()
-    {return  Password;}
-    public static void setLogin(String newLogin)
-    {
-        Login=newLogin;
+
+    public static String getLogin() {
+        return Login;
+    }
+
+    public static String getPassword() {
+        return Password;
+    }
+
+    public static void setLogin(String newLogin) {
+        Login = newLogin;
     }
 
 }
