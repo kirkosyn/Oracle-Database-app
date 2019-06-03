@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -12,9 +13,11 @@
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="400.0" maxWidth="770.0" minHeight="400.0" minWidth="770.0" prefHeight="400.0" prefWidth="770.0"
-            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin.AdminController">
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="admin.AdminController">
     <children>
         <TabPane maxHeight="400" maxWidth="770" minHeight="400.0" minWidth="770.0" prefHeight="400.0" prefWidth="770.0"
                  tabClosingPolicy="UNAVAILABLE">
@@ -82,8 +85,8 @@
                                     </TableColumn>
                                 </columns>
                             </TableView>
-                            <TextField fx:id="textSearch" layoutX="14.0" layoutY="276.0" prefHeight="24.0" prefWidth="376.0"
-                                       promptText="Wpisz nazwisko"/>
+                            <TextField fx:id="textSearch" layoutX="14.0" layoutY="276.0" prefHeight="24.0"
+                                       prefWidth="376.0" promptText="Wpisz nazwisko"/>
                             <Button fx:id="addButton" layoutX="80.0" layoutY="318.0" mnemonicParsing="false"
                                     onAction="#InsertPracownikAction" prefHeight="25.0" prefWidth="74.0" text="Dodaj"/>
                             <Button fx:id="deleteButton" layoutX="201.0" layoutY="318.0" mnemonicParsing="false"
@@ -91,10 +94,10 @@
                             <Button fx:id="searchButton" layoutX="390.0" layoutY="276.0" mnemonicParsing="false"
                                     onAction="#SearchEntry" prefWidth="74.0" text="Szukaj"/>
                             <Button fx:id="cancelButton" disable="true" layoutX="673.0" layoutY="318.0"
-                                    onAction="#CancelEntries" mnemonicParsing="false" prefHeight="25.0" prefWidth="74.0" text="Anuluj"/>
+                                    mnemonicParsing="false" onAction="#CancelEntries" prefHeight="25.0" prefWidth="74.0"
+                                    text="Anuluj"/>
                             <Button fx:id="commitButton" disable="true" layoutX="521.0" layoutY="318.0"
-                                    onAction="#CommitEntry" mnemonicParsing="false" prefWidth="74.0"
-                                    text="Zaakceptuj"/>
+                                    mnemonicParsing="false" onAction="#CommitEntry" prefWidth="74.0" text="Zaakceptuj"/>
                             <TextField fx:id="textImie" disable="true" layoutX="521.0" layoutY="14.0" prefHeight="27.0"
                                        prefWidth="224.0" promptText="Imię"/>
                             <TextField fx:id="textNazwisko" disable="true" layoutX="521.0" layoutY="52.0"
@@ -122,7 +125,26 @@
                 </Tab>
                 <Tab text="Administrator">
                     <content>
-                        <Pane prefHeight="400.0" prefWidth="770.0"/>
+                        <Pane prefHeight="400.0" prefWidth="770.0">
+                            <children>
+                                <Label layoutX="60.0" layoutY="60.0" text="Administratorzy:">
+                                    <font>
+                                        <Font size="36.0"/>
+                                    </font>
+                                </Label>
+                                <Label layoutX="149.0" layoutY="152.0" text="Karolina Pawluk"/>
+                                <Label layoutX="152.0" layoutY="192.0" text="Paweł Rawicki"/>
+                                <Button fx:id="logoutButton" onAction="#LogOut" layoutX="346.0" layoutY="295.0"
+                                        mnemonicParsing="false" text="Wyloguj się"/>
+                                <Label layoutX="490.0" layoutY="60.0" text="Uprawnienia:">
+                                    <font>
+                                        <Font size="36.0"/>
+                                    </font>
+                                </Label>
+                                <Label layoutX="485.0" layoutY="152.0" text="Modyfiacja danych pracowników w bazie"/>
+                                <Label layoutX="499.0" layoutY="192.0" text="Modyfikacja danych klientów w bazie"/>
+                            </children>
+                        </Pane>
                     </content>
                 </Tab>
             </tabs>

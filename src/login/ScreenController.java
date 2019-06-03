@@ -16,19 +16,17 @@ public class ScreenController {
         this.stage = stage;
     }
 
-    protected static void addScreen(String name, Pane pane) {
+    public static void AddScreen(String name, Pane pane) {
         screenMap.put(name, pane);
     }
 
-    protected static void removeScreen(String name) {
-        screenMap.remove(name);
-    }
-
-    protected static void activate(String name, String title, int width, int height) {
+    public static void Activate(String name, String title, int width, int height) {
         stage.close();
         stage = new Stage();
-        main = new Scene(screenMap.get(name), width, height);
-        //main.setRoot(screenMap.get(name));
+        stage.setWidth(width);
+        stage.setHeight(height);
+        //main = new Scene(screenMap.get(name), width, height);
+        main.setRoot(screenMap.get(name));
         stage.setTitle(title);
         stage.setScene(main);
         stage.setResizable(false);

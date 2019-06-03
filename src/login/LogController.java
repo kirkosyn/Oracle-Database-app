@@ -29,7 +29,7 @@ public class LogController {
     public void Connect(ActionEvent actionEvent) throws IOException {
         if (password.getText().equals("admin") && login.getText().equals("admin")) {
 
-            ScreenController.activate("admin", "Menadżer pracowników", 750, 400);
+            ScreenController.Activate("admin", "Menadżer pracowników", 770, 430);
         } else if (password.getText().equals("bbb") && login.getText().equals("bbb")) {
 
         }
@@ -42,7 +42,7 @@ public class LogController {
             login.setPromptText(Login);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Podano złe hasło lub login");
-            alert.setTitle("Bład Logowenia");
+            alert.setTitle("Bład logowania");
             alert.showAndWait();
 
         }

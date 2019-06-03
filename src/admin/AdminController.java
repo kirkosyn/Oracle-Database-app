@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import login.ScreenController;
 import pracownik.Pracownik;
 import pracownik.PracownikDAO;
 
@@ -98,7 +99,7 @@ public class AdminController {
     }
 
     /**
-    Metoda inicjalizująca kontroler
+     * Metoda inicjalizująca kontroler
      */
     @FXML
     private void initialize() {
@@ -161,6 +162,7 @@ public class AdminController {
     /**
      * Metoda wypełniająca komponenty GUI
      * - obszary, które modyfikuje użytkownik
+     *
      * @param pracownik obiekt pracownika, z którego pobierane są informacje
      */
     private void SetTextFields(Pracownik pracownik) {
@@ -238,18 +240,19 @@ public class AdminController {
 
     /**
      * Metoda sprawdzająca wpisane dane do komponentów GUI
-     * @param imie imię pracownika
-     * @param nazwisko nazwisko pracownika
+     *
+     * @param imie         imię pracownika
+     * @param nazwisko     nazwisko pracownika
      * @param data_urodzin data urodzin pracownika
-     * @param pesel pesel pracownika
-     * @param telefon telefon pracownika
-     * @param bank numer bankowy pracownika
-     * @param id_ant antykwariat
-     * @param id_addr adres
+     * @param pesel        pesel pracownika
+     * @param telefon      telefon pracownika
+     * @param bank         numer bankowy pracownika
+     * @param id_ant       antykwariat
+     * @param id_addr      adres
      * @return zwraca prawdę lub fałsz - czy wpisane dane są poprawne zgodnie z przyjętymi kryteriami
      */
     private boolean CheckEntries(String imie, String nazwisko, Date data_urodzin, String pesel, String telefon,
-                                String bank, int id_ant, int id_addr) {
+                                 String bank, int id_ant, int id_addr) {
         if (pesel == null)
             pesel = "";
         if (id_addr == -1 || id_ant == -1)
@@ -269,6 +272,7 @@ public class AdminController {
 
     /**
      * Metoda pobierająca dane z komponentów GUI
+     *
      * @return zwraca prawdę lub fałsz - czy wpisane dane są poprawne i można wykonać na nich akcję
      * @throws NullPointerException
      * @throws IndexOutOfBoundsException
@@ -312,6 +316,7 @@ public class AdminController {
 
     /**
      * Metoda uaktywniająca akcję zaktualizowania pracownika
+     *
      * @throws NullPointerException
      */
     public void UpdatePracownikAction() throws NullPointerException {
@@ -338,6 +343,7 @@ public class AdminController {
 
     /**
      * Metoda dodająca pracownika do bazy danych
+     *
      * @return zwraca prawdę lub fałsz - czy dodanie zakończyło się sukcesem
      * @throws SQLException
      * @throws IndexOutOfBoundsException
@@ -369,14 +375,14 @@ public class AdminController {
     /**
      * Metoda dezaktywująca akcje
      */
-    private void CancelActions()
-    {
+    private void CancelActions() {
         isUpdatingPracownik = false;
         isAddingPracownik = false;
     }
 
     /**
      * Metoda usuwająca pracownika z bazy
+     *
      * @throws NullPointerException
      */
     public void DeleteEntry() throws NullPointerException {
@@ -401,6 +407,7 @@ public class AdminController {
 
     /**
      * Metoda zatwierdzająca wykonaną akcję
+     *
      * @throws SQLException
      */
     public void CommitEntry() throws SQLException {
@@ -425,6 +432,7 @@ public class AdminController {
 
     /**
      * Właściwa metoda uaktualniająca dane pracownika w bazie
+     *
      * @return
      * @throws SQLException
      * @throws NullPointerException
@@ -446,8 +454,13 @@ public class AdminController {
         return true;
     }
 
+    public void LogOut() {
+        ScreenController.Activate("login", "Baza Danych Antykwariatów", 310, 230);
+    }
+
     /**
      * Metoda wyświetlająca alerty
+     *
      * @param ex
      */
     private void ShowAlert(Object ex) {

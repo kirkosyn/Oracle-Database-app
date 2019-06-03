@@ -12,14 +12,14 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("logowanie.fxml"));
         primaryStage.setTitle("Baza Danych Antykwariatów");
-        Scene scene = new Scene(root, 290, 190);
+        Scene scene = new Scene(root, 300, 190);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
 
         ScreenController screenController = new ScreenController(scene, primaryStage);
-        ScreenController.addScreen("login", FXMLLoader.load(getClass().getResource("logowanie.fxml")));
-        ScreenController.addScreen("admin", FXMLLoader.load(getClass().getResource("/admin/admin_menu.fxml")));
+        ScreenController.AddScreen("login", FXMLLoader.load(getClass().getResource("logowanie.fxml")));
+        ScreenController.AddScreen("admin", FXMLLoader.load(getClass().getResource("/admin/admin_menu.fxml")));
     }
 
 
