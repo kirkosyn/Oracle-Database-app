@@ -1,21 +1,18 @@
 package klient;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.time.LocalDate;
 
 public class Klient {
-    private int id_klienta;
+    private Integer id_klienta;
     private String imie;
     private String nazwisko;
     private String nr_telefonu;
     private String email;
     private String czy_zarejestrowany;
+
+
+
+    private LocalDate RegistrationData;
     private String data_rejestracji;
     private int id_adresu;
 
@@ -30,9 +27,18 @@ public class Klient {
         this.id_adresu = id_adresu;
     }
 
-    public Klient(){}
+    public Klient() {
+    }
 
-    public void setId_klienta(int id_klienta) {
+    public LocalDate getRegistrationData() {
+        return RegistrationData;
+    }
+
+    public void setRegistrationData(LocalDate registrationData) {
+        RegistrationData = registrationData;
+    }
+
+    public void setId_klienta(Integer id_klienta) {
         this.id_klienta = id_klienta;
     }
 
@@ -92,40 +98,7 @@ public class Klient {
         return nr_telefonu;
     }
 
-    public int getId_adresu() {
+    public Integer getId_adresu() {
         return id_adresu;
-    }
-
-    public ObservableList<Klient> GetAllKlienci(Connection conn) {
-        ObservableList<Klient> klienci = FXCollections.observableArrayList();
-        Klient klient = new Klient();
-        try
-        {
-            Statement state = conn.createStatement();
-            ResultSet rs = state.executeQuery("SELECT * FROM KLIENCI");
-            while(rs.next())
-            {
-                klient.setId_klienta(rs.getInt("Id_Klienta"));
-                klient.setImie(rs.getString("Imie"));
-                klient.setNazwisko(rs.getString("Nazwisko"));
-                klient.setData_rejestracji(rs.getDate("Data_Urodzenia").toString());
-                klient.setNr_telefonu(rs.getString("Nr_Telefonu"));
-                klient.setId_adresu(rs.getInt("Id_Adresu"));
-                klient.setCzy_zarejestrowany(rs.getString("Czy_Zarejestrowany"));
-                klient.setEmail(rs.getString("Email"));
-
-                klienci.add(klient);
-            }
-
-            rs.close();
-            state.close();
-        }
-        catch (SQLException ex) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText(ex.toString());
-            alert.show();
-        }
-
-        return klienci;
     }
 }

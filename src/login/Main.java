@@ -12,7 +12,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("logowanie.fxml"));
         primaryStage.setTitle("Baza Danych Antykwariatów");
-        Scene scene = new Scene(root, 300, 190);
+        Scene scene = new Scene(root, 310, 190);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
@@ -20,6 +20,7 @@ public class Main extends Application {
         ScreenController screenController = new ScreenController(scene, primaryStage);
         ScreenController.AddScreen("login", FXMLLoader.load(getClass().getResource("logowanie.fxml")));
         ScreenController.AddScreen("admin", FXMLLoader.load(getClass().getResource("/admin/admin_menu.fxml")));
+        ScreenController.AddScreen("pracownik",FXMLLoader.load(getClass().getResource("/pracownik/pracownik_menu.fxml")));
     }
 
 

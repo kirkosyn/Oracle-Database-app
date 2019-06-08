@@ -21,9 +21,11 @@ public class ScreenController {
     }
 
     public static void Activate(String name, String title, int width, int height) {
+
         stage.close();
         stage = new Stage();
         stage.setWidth(width);
+
         stage.setHeight(height);
         //main = new Scene(screenMap.get(name), width, height);
         main.setRoot(screenMap.get(name));
