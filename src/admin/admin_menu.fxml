@@ -15,103 +15,199 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="400.0" maxWidth="770.0" minHeight="400.0" minWidth="770.0" prefHeight="400.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin.AdminController">
+<?import javafx.scene.control.RadioButton?>
+<AnchorPane maxHeight="400.0" maxWidth="770.0" minHeight="400.0" minWidth="770.0" prefHeight="400.0" prefWidth="770.0"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="admin.AdminController">
     <children>
-        <TabPane maxHeight="400" maxWidth="770" minHeight="400.0" minWidth="770.0" prefHeight="400.0" prefWidth="770.0" tabClosingPolicy="UNAVAILABLE">
+        <TabPane maxHeight="400" maxWidth="770" minHeight="400.0" minWidth="770.0" prefHeight="400.0" prefWidth="770.0"
+                 tabClosingPolicy="UNAVAILABLE">
             <tabs>
-                <Tab text="Pracownicy">
+                <Tab text="Pracownicy" >
                     <Pane prefHeight="400.0" prefWidth="770.0">
                         <children>
-                            <TableView fx:id="tablePracownicy" layoutX="13.0" layoutY="14.0" prefHeight="230.0" prefWidth="450.0" style="-fx-font-size: 8px">
+                            <TableView fx:id="tablePracownicy" layoutX="13.0" layoutY="14.0" prefHeight="230.0"
+                                       prefWidth="450.0" style="-fx-font-size: 8px">
 
                                 <columns>
-                                    <TableColumn fx:id="columnIdPracownika" maxWidth="70" minWidth="50" prefWidth="50" text="Id Pracownika">
+                                    <TableColumn fx:id="columnIdPracownika" maxWidth="70" minWidth="50" prefWidth="50"
+                                                 text="Id Pracownika">
                                         <cellValueFactory>
-                                            <PropertyValueFactory property="id_pracownika" />
+                                            <PropertyValueFactory property="id_pracownika"/>
                                         </cellValueFactory>
                                     </TableColumn>
-                                    <TableColumn fx:id="columnImiePracownika" maxWidth="70" minWidth="50" prefWidth="50" text="Imię">
+                                    <TableColumn fx:id="columnImiePracownika" maxWidth="70" minWidth="50" prefWidth="50"
+                                                 text="Imię">
                                         <cellValueFactory>
-                                            <PropertyValueFactory property="imie" />
+                                            <PropertyValueFactory property="imie"/>
                                         </cellValueFactory>
                                     </TableColumn>
-                                    <TableColumn fx:id="columnNazwiskoPracownika" maxWidth="70" minWidth="50" prefWidth="50" text="Nazwisko">
+                                    <TableColumn fx:id="columnNazwiskoPracownika" maxWidth="70" minWidth="50"
+                                                 prefWidth="50" text="Nazwisko">
                                         <cellValueFactory>
-                                            <PropertyValueFactory property="nazwisko" />
+                                            <PropertyValueFactory property="nazwisko"/>
                                         </cellValueFactory>
                                     </TableColumn>
-                                    <TableColumn fx:id="columnDataUrPracownika" maxWidth="70" minWidth="50" prefWidth="50" text="Data Urodzenia">
+                                    <TableColumn fx:id="columnDataUrPracownika" maxWidth="70" minWidth="50"
+                                                 prefWidth="50" text="Data Urodzenia">
                                         <cellValueFactory>
-                                            <PropertyValueFactory property="data_urodzenia" />
+                                            <PropertyValueFactory property="data_urodzenia"/>
                                         </cellValueFactory>
                                     </TableColumn>
-                                    <TableColumn fx:id="columnPeselPracownika" maxWidth="70" minWidth="50" prefWidth="50" text="Pesel">
+                                    <TableColumn fx:id="columnPeselPracownika" maxWidth="70" minWidth="50"
+                                                 prefWidth="50" text="Pesel">
                                         <cellValueFactory>
-                                            <PropertyValueFactory property="pesel" />
+                                            <PropertyValueFactory property="pesel"/>
                                         </cellValueFactory>
                                     </TableColumn>
-                                    <TableColumn fx:id="columnNrKontaPracownika" maxWidth="70" minWidth="50" prefWidth="50" text="Nr Konta Bankowego">
+                                    <TableColumn fx:id="columnNrKontaPracownika" maxWidth="70" minWidth="50"
+                                                 prefWidth="50" text="Nr Konta Bankowego">
                                         <cellValueFactory>
-                                            <PropertyValueFactory property="nr_konta_bankowego" />
+                                            <PropertyValueFactory property="nr_konta_bankowego"/>
                                         </cellValueFactory>
                                     </TableColumn>
-                                    <TableColumn fx:id="columnNrTelPracownika" maxWidth="70" minWidth="50" prefWidth="50" text="Nr Telefonu">
+                                    <TableColumn fx:id="columnNrTelPracownika" maxWidth="70" minWidth="50"
+                                                 prefWidth="50" text="Nr Telefonu">
                                         <cellValueFactory>
-                                            <PropertyValueFactory property="nr_telefonu" />
+                                            <PropertyValueFactory property="nr_telefonu"/>
                                         </cellValueFactory>
                                     </TableColumn>
-                                    <TableColumn fx:id="columnIdAntykwariatu" maxWidth="70" minWidth="50" prefWidth="50" text="Id Antykwariatu">
+                                    <TableColumn fx:id="columnIdAntykwariatu" maxWidth="70" minWidth="50" prefWidth="50"
+                                                 text="Id Antykwariatu">
                                         <cellValueFactory>
-                                            <PropertyValueFactory property="id_antykwariatu" />
+                                            <PropertyValueFactory property="id_antykwariatu"/>
                                         </cellValueFactory>
                                     </TableColumn>
-                                    <TableColumn fx:id="columnIdAdresu" maxWidth="70" minWidth="50" prefWidth="50" text="Id Adresu">
+                                    <TableColumn fx:id="columnIdAdresu" maxWidth="70" minWidth="50" prefWidth="50"
+                                                 text="Id Adresu">
                                         <cellValueFactory>
-                                            <PropertyValueFactory property="id_adresu" />
+                                            <PropertyValueFactory property="id_adresu"/>
                                         </cellValueFactory>
                                     </TableColumn>
                                 </columns>
                             </TableView>
-                            <TextField fx:id="textSearch" layoutX="14.0" layoutY="276.0" prefHeight="24.0" prefWidth="376.0" promptText="Wpisz nazwisko" />
-                            <Button fx:id="addButton" layoutX="80.0" layoutY="318.0" mnemonicParsing="false" onAction="#InsertPracownikAction" prefHeight="25.0" prefWidth="74.0" text="Dodaj" />
-                            <Button fx:id="deleteButton" layoutX="201.0" layoutY="318.0" mnemonicParsing="false" onAction="#DeleteEntry" prefHeight="25.0" prefWidth="74.0" text="Usuń" />
-                            <Button fx:id="searchButton" layoutX="390.0" layoutY="276.0" mnemonicParsing="false" onAction="#SearchEntry" prefWidth="74.0" text="Szukaj" />
-                            <Button fx:id="cancelButton" disable="true" layoutX="673.0" layoutY="318.0" mnemonicParsing="false" onAction="#CancelEntries" prefHeight="25.0" prefWidth="74.0" text="Anuluj" />
-                            <Button fx:id="commitButton" disable="true" layoutX="521.0" layoutY="318.0" mnemonicParsing="false" onAction="#CommitEntry" prefWidth="74.0" text="Zaakceptuj" />
-                            <TextField fx:id="textImie" disable="true" layoutX="521.0" layoutY="14.0" prefHeight="27.0" prefWidth="224.0" promptText="Imię" />
-                            <TextField fx:id="textNazwisko" disable="true" layoutX="521.0" layoutY="52.0" prefHeight="27.0" prefWidth="224.0" promptText="Nazwisko" />
-                            <DatePicker fx:id="textUrodzenie" disable="true" layoutX="521.0" layoutY="90.0" prefHeight="27.0" prefWidth="224.0" promptText="Data urodzenia" />
-                            <TextField fx:id="textPesel" disable="true" layoutX="521.0" layoutY="128.0" prefHeight="27.0" prefWidth="224.0" promptText="Pesel" />
-                            <TextField fx:id="textBank" disable="true" layoutX="521.0" layoutY="166.0" prefHeight="27.0" prefWidth="224.0" promptText="Nr konta bankowego" />
-                            <TextField fx:id="textTelefon" disable="true" layoutX="521.0" layoutY="204.0" prefHeight="27.0" prefWidth="224.0" promptText="Telefon" />
-                            <ComboBox fx:id="textAntykwariat" disable="true" layoutX="521.0" layoutY="242.0" prefHeight="25.0" prefWidth="225.0" promptText="Antykwariat" />
-                            <ComboBox fx:id="textAdres" disable="true" layoutX="521.0" layoutY="280.0" prefHeight="25.0" prefWidth="226.0" promptText="Adres" />
-                            <Separator layoutX="490.0" layoutY="14.0" orientation="VERTICAL" prefHeight="350.0" prefWidth="7.0" />
-                            <Button fx:id="updateButton" layoutX="317.0" layoutY="318.0" mnemonicParsing="false" onAction="#UpdatePracownikAction" prefHeight="25.0" prefWidth="74.0" text="Zaktualizuj" />
+                            <TextField fx:id="textSearch" layoutX="14.0" layoutY="276.0" prefHeight="24.0"
+                                       prefWidth="376.0" promptText="Wpisz nazwisko"/>
+                            <Button fx:id="addButton" layoutX="80.0" layoutY="318.0" mnemonicParsing="false"
+                                    onAction="#InsertPracownikAction" prefHeight="25.0" prefWidth="74.0" text="Dodaj"/>
+                            <Button fx:id="deleteButton" layoutX="201.0" layoutY="318.0" mnemonicParsing="false"
+                                    onAction="#DeleteEntry" prefHeight="25.0" prefWidth="74.0" text="Usuń"/>
+                            <Button fx:id="searchButton" layoutX="390.0" layoutY="276.0" mnemonicParsing="false"
+                                    onAction="#SearchEntry" prefWidth="74.0" text="Szukaj"/>
+                            <Button fx:id="cancelButton" disable="true" layoutX="673.0" layoutY="318.0"
+                                    mnemonicParsing="false" onAction="#CancelEntries" prefHeight="25.0" prefWidth="74.0"
+                                    text="Anuluj"/>
+                            <Button fx:id="commitButton" disable="true" layoutX="521.0" layoutY="318.0"
+                                    mnemonicParsing="false" onAction="#CommitEntry" prefWidth="74.0" text="Zaakceptuj"/>
+                            <TextField fx:id="textImie" disable="true" layoutX="521.0" layoutY="14.0" prefHeight="27.0"
+                                       prefWidth="224.0" promptText="Imię"/>
+                            <TextField fx:id="textNazwisko" disable="true" layoutX="521.0" layoutY="52.0"
+                                       prefHeight="27.0" prefWidth="224.0" promptText="Nazwisko"/>
+                            <DatePicker fx:id="textUrodzenie" disable="true" layoutX="521.0" layoutY="90.0"
+                                        prefHeight="27.0" prefWidth="224.0" promptText="Data urodzenia"/>
+                            <TextField fx:id="textPesel" disable="true" layoutX="521.0" layoutY="128.0"
+                                       prefHeight="27.0" prefWidth="224.0" promptText="Pesel"/>
+                            <TextField fx:id="textBank" disable="true" layoutX="521.0" layoutY="166.0" prefHeight="27.0"
+                                       prefWidth="224.0" promptText="Nr konta bankowego"/>
+                            <TextField fx:id="textTelefon" disable="true" layoutX="521.0" layoutY="204.0"
+                                       prefHeight="27.0" prefWidth="224.0" promptText="Telefon"/>
+                            <ComboBox fx:id="textAntykwariat" disable="true" layoutX="521.0" layoutY="242.0"
+                                      prefHeight="25.0" prefWidth="225.0" promptText="Antykwariat"/>
+                            <ComboBox fx:id="textAdres" disable="true" layoutX="521.0" layoutY="280.0" prefHeight="25.0"
+                                      prefWidth="226.0" promptText="Adres"/>
+                            <Separator layoutX="490.0" layoutY="14.0" orientation="VERTICAL" prefHeight="350.0"
+                                       prefWidth="7.0"/>
+                            <Button fx:id="updateButton" layoutX="317.0" layoutY="318.0" mnemonicParsing="false"
+                                    onAction="#UpdatePracownikAction" prefHeight="25.0" prefWidth="74.0"
+                                    text="Zaktualizuj"/>
 
                         </children>
                     </Pane>
 
                 </Tab>
+
+                <Tab fx:id="tabKlienci" onSelectionChanged="#DisplayClient" text="Klienci">
+                    <Pane prefHeight="400.0" prefWidth="770.0">
+                        <children>
+                            <TableView fx:id="tableKlienci" layoutX="13.0" layoutY="14.0" prefHeight="230.0"
+                                       prefWidth="450.0" style="-fx-font-size: 8px">
+                                <columns>
+                                    <TableColumn fx:id="columnId" prefWidth="36.0" text="Id Klienta"/>
+                                    <TableColumn fx:id="columnImie" prefWidth="41.0" text="Imię"/>
+                                    <TableColumn fx:id="columnNazwisko" prefWidth="61.0" text="Nazwisko"/>
+                                    <TableColumn fx:id="columnTelefon" prefWidth="69.0" text="Nr Telefonu"/>
+                                    <TableColumn fx:id="columnEmail" prefWidth="51.0" text="Email"/>
+                                    <TableColumn fx:id="columnAdres" minWidth="0.0" prefWidth="41.33331298828125"
+                                                 text="Id Adresu"/>
+                                    <TableColumn fx:id="columnZarejestrowany" prefWidth="74.66668701171875"
+                                                 text="Zarejestrowany"/>
+                                    <TableColumn fx:id="columnDataRejestracji" prefWidth="74.0"
+                                                 text="Data Rejestracji"/>
+                                </columns>
+                            </TableView>
+                            <Separator layoutX="490.0" layoutY="14.0" orientation="VERTICAL" prefHeight="350.0"
+                                       prefWidth="7.0"/>
+
+                            <TextField fx:id="textImie2" disable="true" layoutX="521.0" layoutY="14.0" prefHeight="27.0"
+                                       prefWidth="224.0" promptText="Imię"/>
+                            <TextField fx:id="textNazwisko2" disable="true" layoutX="521.0" layoutY="52.0"
+                                       prefHeight="27.0" prefWidth="224.0" promptText="Nazwisko"/>
+                            <TextField fx:id="textTelefon2" disable="true" layoutX="521.0" layoutY="90.0"
+                                       prefHeight="27.0" prefWidth="224.0" promptText="Telefon"/>
+                            <TextField fx:id="textEmail" disable="true" layoutX="521.0" layoutY="128.0"
+                                       prefHeight="27.0" prefWidth="224.0" promptText="Email"/>
+                            <RadioButton fx:id="textCzyZarejestrwany" disable="true" layoutX="521.0" layoutY="166.0"
+                                         mnemonicParsing="false" prefHeight="27.0" prefWidth="224.0"
+                                         text="Zarejestrowany"/>
+                            <DatePicker fx:id="textDataRejestracji" disable="true" layoutX="521.0" layoutY="204.0"
+                                        prefHeight="27.0" prefWidth="224.0" promptText="Data rejestracji"/>
+                            <Button fx:id="buttonZaakceptuj" disable="true" layoutX="521.0" layoutY="318.0"
+                                    mnemonicParsing="false" onMouseClicked="#ZaakceptujActions" prefHeight="27.0"
+                                    prefWidth="74.0" text="Zaakceptuj"/>
+                            <Button fx:id="buttonAnuluj" disable="true" layoutX="673.0" layoutY="318.0"
+                                    mnemonicParsing="false" onMouseClicked="#AnulujPressed" prefHeight="31.0"
+                                    prefWidth="74.0" text="Anuluj"/>
+                            <ComboBox fx:id="textAdres2" disable="true" layoutX="521.0" layoutY="242.0" prefHeight="27.0"
+                                      prefWidth="224.0" promptText="Adres"/>
+                            <Button fx:id="buttonUsun" layoutX="201.0" layoutY="318.0" mnemonicParsing="false"
+                                    onMouseClicked="#DeleteClient" prefHeight="25.0" prefWidth="74.0" text="Usuń"/>
+                            <Button fx:id="buttonZaktualizuj" layoutX="317.0" layoutY="318.0" mnemonicParsing="false"
+                                    onMouseClicked="#ActivateUpdateClient" prefHeight="25.0" prefWidth="74.0"
+                                    text="Zaktualizuj"/>
+                            <Button fx:id="dodajButton" layoutX="80.0" layoutY="318.0" mnemonicParsing="false"
+                                    onMouseClicked="#ActivateAddClient" prefHeight="25.0" prefWidth="74.0"
+                                    text="Dodaj"/>
+                            <TextField fx:id="szukajTextField" layoutX="14.0" layoutY="276.0" prefHeight="24.0"
+                                       prefWidth="376.0"/>
+
+
+                            <Button fx:id="szukajButton" layoutX="390.0" layoutY="276.0" mnemonicParsing="false"
+                                    onMouseClicked="#SearchClient" prefWidth="74.0" text="Szukaj"/>
+
+                        </children>
+                    </Pane>
+                </Tab>
+
                 <Tab text="Administrator">
                     <content>
                         <Pane prefHeight="400.0" prefWidth="770.0">
                             <children>
                                 <Label layoutX="60.0" layoutY="60.0" text="Administratorzy:">
                                     <font>
-                                        <Font size="36.0" />
+                                        <Font size="36.0"/>
                                     </font>
                                 </Label>
-                                <Label layoutX="149.0" layoutY="152.0" text="Karolina Pawluk" />
-                                <Label layoutX="152.0" layoutY="192.0" text="Paweł Rawicki" />
-                                <Button fx:id="logoutButton" layoutX="346.0" layoutY="295.0" mnemonicParsing="false" onAction="#LogOut" text="Wyloguj się" />
+                                <Label layoutX="149.0" layoutY="152.0" text="Karolina Pawluk"/>
+                                <Label layoutX="152.0" layoutY="192.0" text="Paweł Rawicki"/>
+                                <Button fx:id="logoutButton" layoutX="346.0" layoutY="295.0" mnemonicParsing="false"
+                                        onAction="#LogOut" text="Wyloguj się"/>
                                 <Label layoutX="490.0" layoutY="60.0" text="Uprawnienia:">
                                     <font>
-                                        <Font size="36.0" />
+                                        <Font size="36.0"/>
                                     </font>
                                 </Label>
-                                <Label layoutX="485.0" layoutY="152.0" text="Modyfiacja danych pracowników w bazie" />
-                                <Label layoutX="499.0" layoutY="192.0" text="Modyfikacja danych klientów w bazie" />
+                                <Label layoutX="485.0" layoutY="152.0" text="Modyfiacja danych pracowników w bazie"/>
+                                <Label layoutX="499.0" layoutY="192.0" text="Modyfikacja danych klientów w bazie"/>
                             </children>
                         </Pane>
                     </content>

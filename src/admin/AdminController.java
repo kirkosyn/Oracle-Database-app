@@ -10,13 +10,19 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import klient.Klient;
+import klient.KlientDAO;
 import login.ScreenController;
 import pracownik.Pracownik;
+import pracownik.PracownikController;
 import pracownik.PracownikDAO;
+import zadanie.Zadanie;
+import zadanie.ZadanieDAO;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 public class AdminController {
@@ -113,6 +119,10 @@ public class AdminController {
 
         SetTableWithData();
         SetComboBoxes();
+
+        textDataRejestracji.setValue(null);
+
+        DisplayClient();
     }
 
     /**
@@ -134,6 +144,7 @@ public class AdminController {
 
         antykwariaty.forEach(antykwariat -> textAntykwariat.getItems().add(antykwariat.getNazwa()));
         adresy.forEach(adres -> textAdres.getItems().add(adres.getMiasto()));
+        adresy.forEach(adres -> textAdres2.getItems().add(adres.getMiasto()));
     }
 
     /**
@@ -468,4 +479,445 @@ public class AdminController {
         alert.setContentText(ex.toString());
         alert.show();
     }
+
+
+
+    /*****************************************/
+
+    @FXML
+    private TableView<Klient> tableKlienci;
+
+    /*
+    columns responsible for displaying Klient
+     */
+    @FXML
+    private TableColumn<Klient, Integer> columnId;
+    @FXML
+    private TableColumn<Klient, String> columnImie;
+    @FXML
+    private TableColumn<Klient, String> columnNazwisko;
+    @FXML
+    private TableColumn<Klient, String> columnTelefon;
+    @FXML
+    private TableColumn<Klient, String> columnEmail;
+    @FXML
+    private TableColumn<Klient, String> columnAdres;
+    @FXML
+    private TableColumn<Klient, String> columnZarejestrowany;
+    @FXML
+    private TableColumn<Klient, String> columnDataRejestracji;
+
+
+    /**************************************************************
+     columns responsible for getting info about client
+     **************************************************************/
+    @FXML
+    private TextField textImie2;
+    @FXML
+    private TextField textNazwisko2;
+    @FXML
+    private TextField textEmail;
+    @FXML
+    private TextField textTelefon2;
+    @FXML
+    private DatePicker textDataRejestracji;
+    @FXML
+    private ComboBox<String> textAdres2;
+    @FXML
+    RadioButton textCzyZarejestrwany;
+
+
+    @FXML
+    private TextField textSearch2;
+
+    /***********************************************************
+     buttons responsible for selecting action for client
+     *************************************************************/
+    @FXML
+    private Button buttonDodaj;
+    @FXML
+    private Button buttonZaktualizuj;
+    @FXML
+    private Button buttonUsun;
+
+    /*
+
+     */
+    @FXML
+    private Button buttonZaakceptuj;
+    @FXML
+    private Button buttonAnuluj;
+
+    @FXML
+    private Button szukajButton;
+
+    @FXML
+    TextField szukajTextField;
+
+    @FXML
+    private Label imieLabel;
+
+    @FXML
+    private Label nazwiskoLabel;
+
+    @FXML
+    private Label telefonLabel;
+
+    @FXML
+    private Label urodzinyLabel;
+
+
+    public static int id=1;
+
+    private String imie2;
+    private String nazwisko2;
+    private String numerTelefonu;
+    private String email;
+    private String czyZarejestrowany;
+    private Date dataRejestracji;
+    private Integer idAdresu;
+    private String information;
+    private int idKlienta;
+
+
+    /***************************************************************************************
+     * Observable lists of particular sets of elements
+     ***************************************************************************************/
+
+    private ObservableList<Klient> klienci = FXCollections.observableArrayList();
+
+
+    PracownikController.Mode mode;
+
+    /**
+     * method for logging out of PRACOWNIK access to database
+     */
+    public void Logout() {
+        ScreenController.Activate("login", "Baza Danych Antykwariatów", 310, 230);
+    }
+
+
+    /**
+     * clears what is cells for adding or updating client
+     */
+    private void ClearCells() {
+        textCzyZarejestrwany.setSelected(false);
+        textDataRejestracji.setValue(null);
+        textAdres2.getSelectionModel().clearSelection();
+        textImie2.clear();
+        textNazwisko2.clear();
+        textTelefon2.clear();
+        textEmail.clear();
+
+    }
+
+    /**
+     * function used when we don't want change database
+     * for Anuluj Button
+     */
+    public void AnulujPressed() throws SQLException {
+        ClearCells();
+        ChangePaneAddClientActivity(true);
+        if (mode == PracownikController.Mode.DELETE) {
+            if (ConfirmationAlert("Czy chcesz przywrocic usunietych klientow?")) {
+                DatabaseConnect.ExecuteRollback();
+                DisplayClient();
+            }
+        }
+    }
+
+    /**
+     * displays Clients on TableView
+     */
+    public void DisplayClient() {
+
+        klienci = new KlientDAO().GetAllKlienci();
+
+        columnId.setCellValueFactory(new PropertyValueFactory<Klient, Integer>("id_klienta"));
+        columnImie.setCellValueFactory(new PropertyValueFactory<Klient, String>("imie"));
+        columnNazwisko.setCellValueFactory(new PropertyValueFactory<Klient, String>("nazwisko"));
+        columnTelefon.setCellValueFactory(new PropertyValueFactory<Klient, String>("nr_telefonu"));
+        columnEmail.setCellValueFactory(new PropertyValueFactory<Klient, String>("email"));
+        columnZarejestrowany.setCellValueFactory(new PropertyValueFactory<Klient, String>("czy_zarejestrowany"));
+        columnDataRejestracji.setCellValueFactory(new PropertyValueFactory<Klient, String>("data_rejestracji"));
+        columnAdres.setCellValueFactory(new PropertyValueFactory<Klient, String>("id_adresu"));
+
+        tableKlienci.setItems(klienci);
+        tableKlienci.getSortOrder().add(columnId);
+    }
+
+    /**
+     * setting mode for UPDATE Klienci
+     */
+    public void ActivateAddClient() {
+        ClearCells();
+        mode = PracownikController.Mode.INSERT;
+        ChangePaneAddClientActivity(false);
+    }
+
+    /**
+     * setting mode for UPDATE Klienci
+     */
+    public void ActivateUpdateClient() {
+        ClearCells();
+        mode = PracownikController.Mode.UPDATE;
+        ChangePaneAddClientActivity(false);
+
+        Klient klient;
+        try {
+            klient = tableKlienci.getSelectionModel().getSelectedItem();
+            idKlienta = klient.getId_klienta();
+
+            FillAddPane(klient);
+        } catch (Exception ex) {
+            if (ex.equals("NullPointerException")) ;
+            InformationAlert("WYBIERZ KLIENTA DO ZAKTUALIZOWANIA");
+        }
+
+    }
+
+    /**
+     * function used when we accept changes in data bases
+     * it is responsible for making calls to KLIENTDAO class where are functions responsible for editing data base
+     *
+     * @throws Exception
+     */
+    public void ZaakceptujActions() throws Exception {
+
+        if (mode == mode.INSERT) {
+            boolean parametersOK = WalidataAddClient();
+
+            if (!parametersOK) {
+                Alert info = new Alert(Alert.AlertType.ERROR);
+                info.setContentText(information);
+                info.show();
+
+            } else {
+                ClearCells();
+                idKlienta = new KlientDAO().MaxIdEntry();
+                ChangePaneAddClientActivity(true);
+                new KlientDAO().InsertKlient(idKlienta, imie2, nazwisko2, numerTelefonu, email, czyZarejestrowany, dataRejestracji, idAdresu);
+            }
+        } else if (mode == mode.UPDATE) {
+            boolean parametersOK = WalidataAddClient();
+
+            if (!parametersOK) {
+                Alert info = new Alert(Alert.AlertType.ERROR);
+                info.setContentText(information);
+                info.show();
+            } else {
+                ClearCells();
+                ChangePaneAddClientActivity(true);
+                new KlientDAO().UpdateKlient(idKlienta, imie2, nazwisko2, numerTelefonu, email, czyZarejestrowany, dataRejestracji, idAdresu);
+            }
+
+        } else if (mode == mode.DELETE) {
+            if (ConfirmationAlert("Czy chcesz definitywnie usunąć klienta?")) {
+                DatabaseConnect.ExecuteCommit();
+                buttonZaakceptuj.setDisable(true);
+                buttonAnuluj.setDisable(true);
+            }
+
+        }
+        DisplayClient();
+
+
+    }
+
+    /**
+     * checking if inputs for UPDATE or INSERT new client to database are correct
+     * displaying information about user mistakes
+     *
+     * @return true if data in  paneClientAdd are correct, false otherwise
+     */
+    private boolean WalidataAddClient() {
+        imie2 = textImie2.getText();
+        nazwisko2 = textNazwisko2.getText();
+        information = "";
+        numerTelefonu = textTelefon2.getText();
+
+        if (!(imie2.length() == 0))
+            imie2 = imie2.substring(0, 1).toUpperCase() + imie2.substring(1);
+        if (!(nazwisko2.length() == 0))
+            nazwisko2 = nazwisko2.substring(0, 1).toUpperCase() + nazwisko2.substring(1);
+
+
+        dataRejestracji = null;
+        if (textDataRejestracji.getValue() != null)
+            dataRejestracji = Date.valueOf(textDataRejestracji.getValue());
+
+
+        if (textCzyZarejestrwany.isSelected())
+            czyZarejestrowany = "t";
+        else
+            czyZarejestrowany = "n";
+
+
+        email = textEmail.getText();
+        if (email == null)
+            email = "";
+
+        idAdresu = -1;
+        for (Adres adr : adresy) {
+            if (adr.getMiasto().equals(textAdres2.getSelectionModel().getSelectedItem())) {
+                idAdresu = adr.getId_adresu();
+                break;
+            }
+        }
+        try {
+            if (idAdresu.equals(-1)) {
+                information = "wstaw adres";
+                return false;
+            }
+
+            if (((!email.contains("@")) && (!email.equals("")))) {
+                information = "email bez malpy";
+                return false;
+            }
+
+            if (imie2.equals("") || nazwisko2.equals("")) {
+                information = " nie podano danych pracownika";
+                return false;
+            }
+            if (Pattern.matches(".*\\d.*", imie2) || Pattern.matches(".*\\d.*", nazwisko2)) //imie.matches(".*\\d.*")
+            {
+                information = " zly pattern";
+                return false;
+            }
+            if (numerTelefonu.equals("")) {
+                information = "nie podano numeru telefonu";
+                return false;
+            }
+            if (imie2.length() > 20 || nazwisko2.length() > 20 || numerTelefonu.length() > 9) {
+                information = " za dlugie dane";
+                return false;
+            }
+            if (czyZarejestrowany.equals("t")) {
+                try {
+                    dataRejestracji = Date.valueOf(textDataRejestracji.getValue());
+                } catch (Exception ex) {
+                    Alert info = new Alert(Alert.AlertType.ERROR);
+                    info.setContentText("podaj date rejestracji");
+                    info.show();
+                    return false;
+                }
+                dataRejestracji = Date.valueOf(textDataRejestracji.getValue());
+            } else {
+                dataRejestracji = null;
+            }
+        } catch (Exception ex) {
+
+        }
+
+        return true;
+    }
+
+    /**
+     * function is used for button USUN
+     * this function is responsible for removing client
+     */
+    public void DeleteClient() {
+        int id;
+        mode = PracownikController.Mode.DELETE;
+        //  if (ConfirmationAlert("Czy chcesz usunąć klienta?")) {
+        try {
+            id = tableKlienci.getSelectionModel().getSelectedItem().getId_klienta();
+            new KlientDAO().DeleteClient(id);
+            DisplayClient();
+            buttonAnuluj.setDisable(false);
+            buttonZaakceptuj.setDisable(false);
+
+        } catch (Exception ex) {
+            if (ex.equals("NullPointerException")) ;
+            InformationAlert("WYBIERZ KLIENTA DO USUNIĘCIA");
+        }
+        // }
+
+    }
+
+    public void SearchClient() {
+        String szukaj;
+        szukaj = szukajTextField.getText();
+
+        klienci = new KlientDAO().SearchKlient(szukaj);
+        tableKlienci.setItems(klienci);
+    }
+
+    /**
+     * function for filling panel with KLIENT data.
+     * Used for UPDATE KLIENT
+     *
+     * @param klient object from which we put values into panel for adding new Klient
+     */
+    private void FillAddPane(Klient klient) {
+        textEmail.setText(klient.getEmail());
+        textImie2.setText(klient.getImie());
+        textTelefon2.setText(klient.getNr_telefonu());
+        textNazwisko2.setText(klient.getNazwisko());
+
+        for (Adres adres : adresy) {
+            if (adres.getId_adresu().equals(klient.getId_adresu())) {
+                textAdres2.setValue(adres.getMiasto());
+                break;
+            }
+
+        }
+        if (klient.getCzy_zarejestrowany().equals("tak"))
+            textCzyZarejestrwany.setSelected(true);
+        else
+            textCzyZarejestrwany.setSelected(false);
+
+        textDataRejestracji.setValue(klient.getRegistrationData());
+
+    }
+
+    /**
+     * function is used for setting status of panel for client controls for adding new client
+     *
+     * @param status false- panel is active, true- panel is discative
+     */
+    private void ChangePaneAddClientActivity(boolean status) {
+        textEmail.setDisable(status);
+
+        textImie2.setDisable(status);
+        textTelefon2.setDisable(status);
+        textNazwisko2.setDisable(status);
+        textAdres2.setDisable(status);
+
+        textCzyZarejestrwany.setDisable(status);
+        textDataRejestracji.setDisable(status);
+
+        buttonAnuluj.setDisable(status);
+        buttonZaakceptuj.setDisable(status);
+    }
+
+
+
+    private void InformationAlert(String information) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText(information);
+        alert.setTitle("");
+        alert.setHeaderText("");
+        alert.show();
+    }
+
+    /**
+     * function is used to confirm user actions
+     *
+     * @param header question to user if he is sure of his action
+     * @return confirms if action is going to be done or not
+     */
+    private boolean ConfirmationAlert(String header) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Czy jesteś pewien?");
+        alert.setHeaderText(header);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            return true;
+        }
+        return false;
+
+    }
+
+
 }
