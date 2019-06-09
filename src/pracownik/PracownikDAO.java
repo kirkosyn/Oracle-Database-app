@@ -18,6 +18,7 @@ public class PracownikDAO {
     public PracownikDAO() {
     }
 
+    public static int id;
     /**
      * Metoda pobierająca dane pracowników z bazy
      *
@@ -224,7 +225,7 @@ public class PracownikDAO {
      * @param pracownik obiekt pracownika
      * @return pracownik z wypełnionymi informacjami
      */
-    private Pracownik SetFieldsOfClass(ResultSet rs, Pracownik pracownik) {
+    private static Pracownik SetFieldsOfClass(ResultSet rs, Pracownik pracownik) {
         try {//System.out.println(rs.getInt(1));
             pracownik.setId_pracownika(rs.getInt(1));
             pracownik.setImie(rs.getString(2));
@@ -251,8 +252,8 @@ public class PracownikDAO {
                 String.valueOf(pracownik.getId_adresu())));
     }*/
 
-    /*public Pracownik GetEntryAttributes(int id) {
-        String cmd = "SELECT * FROM PRACOWNICY WHERE ID_PRACOWNIKA = " + id;
+    public static boolean IsInDB(String nazwisko) {
+        String cmd = "SELECT * FROM PRACOWNICY WHERE NAZWISKO = '" + nazwisko + "'";
         ResultSet rs = null;
         Pracownik pracownik = new Pracownik();
         try {
@@ -263,7 +264,26 @@ public class PracownikDAO {
         } catch (SQLException ex) {
             System.out.print(ex.toString());
         }
-        return pracownik;
-    }*/
+        if (pracownik.getNazwisko() == null)
+            return false;
+        else
+            return true;
+    }
+
+    public static int GetIdFromNazwisko(String nazwisko) {
+        String cmd = "SELECT ID_PRACOWNIKA FROM PRACOWNICY WHERE NAZWISKO = '" + nazwisko + "'";
+        ResultSet rs = null;
+        int id = 0;
+        //Pracownik pracownik = new Pracownik();
+        try {
+            rs = DatabaseConnect.ExecuteStatement(cmd);
+            while (rs.next()) {
+                id = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            System.out.print(ex.toString());
+        }
+        return id;
+    }
 }
 

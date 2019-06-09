@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import pracownik.Pracownik;
 import pracownik.PracownikController;
+import pracownik.PracownikDAO;
 
 import java.io.IOException;
 import java.util.prefs.Preferences;
@@ -18,8 +19,8 @@ import java.util.prefs.Preferences;
 public class LogController {
     // Preferences preferences=Preferences.userNodeForPackage(LogController.class);
 
-    private static String Login = "LOGIN";
-    private static String Password = "HASŁO";
+    private static String Login;
+    private static String Password;
 
     @FXML
     private PasswordField password;
@@ -29,11 +30,16 @@ public class LogController {
 
 
     public void Connect(ActionEvent actionEvent) throws IOException {
-        if (password.getText().equals("admin") && login.getText().equals("admin")) {
+        String pwd = password.getText();
+        String lg = login.getText();
+        Login = pwd;
+
+        if (pwd.equals("admin") && lg.equals("admin")) {
 
             ScreenController.Activate("admin", "Menadżer pracowników", 770, 430);
-        } else if (password.getText().equals("bbb") && login.getText().equals("bbb")) {
-            PracownikController.id=2;
+        } else if (PracownikDAO.IsInDB(lg) && lg.equals(pwd)) {
+            PracownikDAO.id = PracownikDAO.GetIdFromNazwisko(lg);
+
             ScreenController.Activate("pracownik","Konto Pracownika",770, 430);
         }
 

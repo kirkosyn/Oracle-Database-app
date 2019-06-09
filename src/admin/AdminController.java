@@ -92,6 +92,7 @@ public class AdminController {
 
     private boolean isAddingPracownik;
     private boolean isUpdatingPracownik;
+    private boolean isDeletingPracownik;
 
     private ObservableList<Pracownik> pracownicy = FXCollections.observableArrayList();
     private ObservableList<Antykwariat> antykwariaty = FXCollections.observableArrayList();
@@ -373,14 +374,16 @@ public class AdminController {
      * Metoda przerywająca akcję
      */
     public void CancelEntries() {
-        try {
-            DatabaseConnect.ExecuteUpdateStatement("ROLLBACK");
-        } catch (SQLException ex) {
-            ShowAlert(ex.toString());
+        if (ConfirmationAlert("Czy chcesz cofnąć?")) {
+            try {
+                DatabaseConnect.ExecuteUpdateStatement("ROLLBACK");
+            } catch (SQLException ex) {
+                ShowAlert(ex.toString());
+            }
+            CancelActions();
+            DisableFields();
+            RefreshTable();
         }
-        CancelActions();
-        DisableFields();
-        RefreshTable();
     }
 
     /**
@@ -389,6 +392,7 @@ public class AdminController {
     private void CancelActions() {
         isUpdatingPracownik = false;
         isAddingPracownik = false;
+        //isDeletingPracownik = false;
     }
 
     /**
@@ -405,6 +409,8 @@ public class AdminController {
             new PracownikDAO().DeletePracownik(id);
             commitButton.setDisable(false);
             cancelButton.setDisable(false);
+            isDeletingPracownik = true;
+
         } catch (SQLException ex) {
             ShowAlert(ex.toString());
         } catch (NullPointerException ex) {
@@ -430,13 +436,23 @@ public class AdminController {
         if (isUpdatingPracownik) {
             entries_correct = UpdateEntry();
         }
-        if (!entries_correct) {
+        if (isDeletingPracownik)
+        {
+            if (ConfirmationAlert("Czy chcesz definitywnie usunąć pracownika?")) {
+                DatabaseConnect.ExecuteUpdateStatement(cmd);
+                DisableFields();
+                CancelActions();
+                isDeletingPracownik = false;
+            }
+        }
+       else if (!entries_correct) {
             cmd = "ROLLBACK";
             DatabaseConnect.ExecuteUpdateStatement(cmd);
         } else {
             DatabaseConnect.ExecuteUpdateStatement(cmd);
             DisableFields();
             CancelActions();
+            InformationAlert("Akcja zakończona sukcesem.");
         }
         RefreshTable();
     }
@@ -479,7 +495,6 @@ public class AdminController {
         alert.setContentText(ex.toString());
         alert.show();
     }
-
 
 
     /*****************************************/
@@ -567,7 +582,7 @@ public class AdminController {
     private Label urodzinyLabel;
 
 
-    public static int id=1;
+    public static int id = 1;
 
     private String imie2;
     private String nazwisko2;
@@ -619,7 +634,7 @@ public class AdminController {
         ClearCells();
         ChangePaneAddClientActivity(true);
         if (mode == PracownikController.Mode.DELETE) {
-            if (ConfirmationAlert("Czy chcesz przywrocic usunietych klientow?")) {
+            if (ConfirmationAlert("Czy chcesz cofnąć?")) {
                 DatabaseConnect.ExecuteRollback();
                 DisplayClient();
             }
@@ -671,7 +686,7 @@ public class AdminController {
             FillAddPane(klient);
         } catch (Exception ex) {
             if (ex.equals("NullPointerException")) ;
-            InformationAlert("WYBIERZ KLIENTA DO ZAKTUALIZOWANIA");
+            InformationAlert("Wybierz klienta do zaktualizowania.");
         }
 
     }
@@ -766,30 +781,30 @@ public class AdminController {
         }
         try {
             if (idAdresu.equals(-1)) {
-                information = "wstaw adres";
+                information = "Zaznacz adres.";
                 return false;
             }
 
             if (((!email.contains("@")) && (!email.equals("")))) {
-                information = "email bez malpy";
+                information = "Niepoprawny email.";
                 return false;
             }
 
             if (imie2.equals("") || nazwisko2.equals("")) {
-                information = " nie podano danych pracownika";
+                information = "Nie podano danych pracownika.";
                 return false;
             }
             if (Pattern.matches(".*\\d.*", imie2) || Pattern.matches(".*\\d.*", nazwisko2)) //imie.matches(".*\\d.*")
             {
-                information = " zly pattern";
+                information = "Jedno z pól zawiera błędne dane.";
                 return false;
             }
             if (numerTelefonu.equals("")) {
-                information = "nie podano numeru telefonu";
+                information = "Nie podano numeru telefonu.";
                 return false;
             }
             if (imie2.length() > 20 || nazwisko2.length() > 20 || numerTelefonu.length() > 9) {
-                information = " za dlugie dane";
+                information = "Za długie dane.";
                 return false;
             }
             if (czyZarejestrowany.equals("t")) {
@@ -797,7 +812,7 @@ public class AdminController {
                     dataRejestracji = Date.valueOf(textDataRejestracji.getValue());
                 } catch (Exception ex) {
                     Alert info = new Alert(Alert.AlertType.ERROR);
-                    info.setContentText("podaj date rejestracji");
+                    info.setContentText("Podaj datę rejestracji.");
                     info.show();
                     return false;
                 }
@@ -829,7 +844,7 @@ public class AdminController {
 
         } catch (Exception ex) {
             if (ex.equals("NullPointerException")) ;
-            InformationAlert("WYBIERZ KLIENTA DO USUNIĘCIA");
+            InformationAlert("Nie wybrano klienta!");
         }
         // }
 
@@ -890,7 +905,6 @@ public class AdminController {
         buttonAnuluj.setDisable(status);
         buttonZaakceptuj.setDisable(status);
     }
-
 
 
     private void InformationAlert(String information) {
