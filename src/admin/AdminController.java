@@ -81,6 +81,9 @@ public class AdminController {
     @FXML
     private Button updateButton;
 
+    @FXML
+    private TabPane mainTab;
+
     private String bank;
     private String imie;
     private String nazwisko;
@@ -323,6 +326,7 @@ public class AdminController {
         EnableFields();
         ClearFields();
         CancelActions();
+        isDeletingPracownik = false;
         isAddingPracownik = true;
     }
 
@@ -333,6 +337,7 @@ public class AdminController {
      */
     public void UpdatePracownikAction() throws NullPointerException {
         DisableFields();
+        isDeletingPracownik = false;
         CancelActions();
         Pracownik pracownik;
         try {
@@ -349,7 +354,7 @@ public class AdminController {
         } catch (NullPointerException ex) {
             ShowAlert("Nie zaznaczyłeś wiersza!");
             commitButton.setDisable(true);
-            cancelButton.setDisable(true);
+            cancelButton.setDisable(false);
         }
     }
 
@@ -381,6 +386,7 @@ public class AdminController {
                 ShowAlert(ex.toString());
             }
             CancelActions();
+            isDeletingPracownik = false;
             DisableFields();
             RefreshTable();
         }
@@ -416,7 +422,7 @@ public class AdminController {
         } catch (NullPointerException ex) {
             ShowAlert("Nie zaznaczyłeś wiersza!");
             commitButton.setDisable(true);
-            cancelButton.setDisable(true);
+            cancelButton.setDisable(false);
         }
         CancelActions();
         RefreshTable();
@@ -475,13 +481,14 @@ public class AdminController {
         } catch (NullPointerException ex) {
             ShowAlert("Nie zaznaczyłeś wiersza!");
             commitButton.setDisable(true);
-            cancelButton.setDisable(true);
+            cancelButton.setDisable(false);
         }
 
         return true;
     }
 
     public void LogOut() {
+        mainTab.getSelectionModel().select(0);
         ScreenController.Activate("login", "Baza Danych Antykwariatów", 310, 230);
     }
 

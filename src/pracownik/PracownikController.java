@@ -139,8 +139,10 @@ public class PracownikController {
     @FXML
     private Label urodzinyLabel;
 
+    @FXML
+    private TabPane mainTab;
 
-    public int id;
+    public static int id;
 
     private String imie;
     private String nazwisko;
@@ -201,6 +203,9 @@ public class PracownikController {
         nazwiskoLabel.setText("");
         telefonLabel.setText("");
         urodzinyLabel.setText("");
+        id = 0;
+        //DisplayPracownik();
+        mainTab.getSelectionModel().select(0);
         ScreenController.Activate("login", "Baza Danych Antykwariatów", 310, 230);
     }
 
@@ -210,7 +215,6 @@ public class PracownikController {
     public void DisplayZadania() {
 
         zadania = new ZadanieDAO().GetPracownikZadania(id);
-//TODO tu jest bug nie wyswietla id zadania
         columnIdZadania.setCellValueFactory(new PropertyValueFactory<>("idZadania"));
         columnRodzaj.setCellValueFactory(new PropertyValueFactory<>("rodzajZadania"));
         columnDataNadania.setCellValueFactory(new PropertyValueFactory<>("dataNadania"));

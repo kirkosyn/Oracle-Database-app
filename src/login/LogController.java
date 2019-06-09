@@ -39,7 +39,7 @@ public class LogController {
             ScreenController.Activate("admin", "Menadżer pracowników", 770, 430);
         } else if (PracownikDAO.IsInDB(lg) && lg.equals(pwd)) {
             PracownikDAO.id = PracownikDAO.GetIdFromNazwisko(lg);
-
+            PracownikController.id= PracownikDAO.GetIdFromNazwisko(lg);
             ScreenController.Activate("pracownik","Konto Pracownika",770, 430);
         }
 

@@ -12,7 +12,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("logowanie.fxml"));
         primaryStage.setTitle("Baza Danych Antykwariatów");
-        Scene scene = new Scene(root, 310, 190);
+        Scene scene = new Scene(root, 300, 190);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
